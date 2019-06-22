@@ -1,0 +1,187 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+
+namespace Mors.Maybes.Test.Inspection_of_values
+{
+    public sealed class Tests_of_extraction_of_values
+    {
+        public sealed class Maybe_with_stored_value
+        {
+            private static Maybe<T> Instance<T>(T x) => new Maybe<T>(x);
+
+            [Test]
+            public void Value_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(1).Value,
+                    Is.EqualTo(1));
+            }
+
+            [Test]
+            public void ValueOr_with_value_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(1).ValueOr(2),
+                    Is.EqualTo(1));
+            }
+
+            [Test]
+            public void ValueOr_with_value_of_base_type_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(new Derived()).ValueOr(new Base()),
+                    Is.EqualTo(new Derived()));
+            }
+
+            [Test]
+            public void ValueOr_with_value_of_derived_type_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(new Base()).ValueOr(new Derived()),
+                    Is.EqualTo(new Base()));
+            }
+
+            [Test]
+            public void ValueOr_with_function_returning_value_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(1).ValueOr(() => 2),
+                    Is.EqualTo(1));
+            }
+
+            [Test]
+            public void ValueOr_with_function_returning_value_of_base_type_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(new Derived()).ValueOr(() => new Base()),
+                    Is.EqualTo(new Derived()));
+            }
+
+            [Test]
+            public void ValueOr_with_function_returning_value_of_derived_type_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(new Base()).ValueOr(() => new Derived()),
+                    Is.EqualTo(new Base()));
+            }
+
+            [Test]
+            public void ValueOrDefault_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(2).ValueOrDefault(),
+                    Is.EqualTo(2));
+            }
+        }
+
+        public sealed class Maybe_without_value
+        {
+            private static Maybe<int> Instance() => new Maybe<int>();
+            private static Maybe<T> Instance<T>() => new Maybe<T>();
+
+            [Test]
+            public void Value_throws_InvalidOperationException()
+            {
+                Assert.That(
+                    () => Instance().Value,
+                    Throws.Exception.TypeOf<InvalidOperationException>());
+            }
+
+            [Test]
+            public void ValueOr_with_value_returns_that_value()
+            {
+                Assert.That(
+                    Instance().ValueOr(1),
+                    Is.EqualTo(1));
+            }
+
+            [Test]
+            public void ValueOr_with_value_of_base_type_returns_that_value()
+            {
+                Assert.That(
+                    Instance<Derived>().ValueOr(new Base()),
+                    Is.EqualTo(new Base()));
+            }
+
+            [Test]
+            public void ValueOr_with_value_of_derived_type_returns_that_value()
+            {
+                Assert.That(
+                    Instance<Base>().ValueOr(new Derived()),
+                    Is.EqualTo(new Derived()));
+            }
+
+            [Test]
+            public void ValueOr_with_function_returning_value_returns_that_value()
+            {
+                Assert.That(
+                    Instance().ValueOr(() => 1),
+                    Is.EqualTo(1));
+            }
+
+            [Test]
+            public void ValueOr_with_function_returning_value_of_base_type_returns_that_value()
+            {
+                Assert.That(
+                    Instance<Derived>().ValueOr(() => new Base()),
+                    Is.EqualTo(new Base()));
+            }
+
+            [Test]
+            public void ValueOr_with_function_returning_value_of_derived_type_returns_that_value()
+            {
+                Assert.That(
+                    Instance<Base>().ValueOr(() => new Derived()),
+                    Is.EqualTo(new Derived()));
+            }
+
+            [Test]
+            public void ValueOrDefault_returns_default_value()
+            {
+                Assert.That(
+                    Instance<int>().ValueOrDefault(),
+                    Is.EqualTo(0));
+            }
+        }
+
+        public sealed class Maybe_of_enumerable_type
+        {
+            private static Maybe<T> Instance<T>() => new Maybe<T>();
+            private static Maybe<T> Instance<T>(T x) => new Maybe<T>(x);
+
+            [Test]
+            public void ValueOrEmpty_on_maybe_without_value_returns_empty_enumerable()
+            {
+                Assert.That(
+                    Instance<IEnumerable<int>>().ValueOrEmpty(),
+                    Is.EquivalentTo(Enumerable.Empty<int>()));
+            }
+
+            [Test]
+            public void ValueOrEmpty_on_maybe_with_empty_value_returns_empty_enumerable()
+            {
+                Assert.That(
+                    Instance(Enumerable.Empty<int>()).ValueOrEmpty(),
+                    Is.EquivalentTo(Enumerable.Empty<int>()));
+            }
+
+            [Test]
+            public void ValueOrEmpty_on_maybe_with_non_empty_value_returns_that_value()
+            {
+                Assert.That(
+                    Instance(Enumerable.Repeat(1, 1)).ValueOrEmpty(),
+                    Is.EquivalentTo(Enumerable.Repeat(1, 1)));
+            }
+        }
+
+        private class Base
+        {
+            public override bool Equals(object obj) => obj?.GetType() == GetType();
+            public override int GetHashCode() => GetType().GetHashCode();
+        }
+
+        private sealed class Derived : Base { }
+    }
+}
