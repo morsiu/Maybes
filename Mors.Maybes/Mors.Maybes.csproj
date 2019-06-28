@@ -10,6 +10,8 @@
     <Company />
     <NeutralLanguage>en</NeutralLanguage>
     <Version>0.1.0</Version>
+    <PackageProjectUrl>https://github.com/morsiu/Maybes</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/morsiu/Maybes</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
