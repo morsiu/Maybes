@@ -210,7 +210,7 @@ namespace Mors.Maybes
 
         public override string ToString() =>
             HasValue
-                ? $"Some of `{_value}`"
-                : "None";
+                ? _value?.ToString() ?? string.Empty
+                : string.Empty;
     }
 }

@@ -12,7 +12,7 @@ namespace Mors.Maybes.Test.Formatting
         {
             Assert.That(
                 Instance(new Foo("value")).ToString(),
-                Is.EqualTo("Some of `value`"));
+                Is.EqualTo("value"));
         }
 
         [Test]
@@ -20,7 +20,7 @@ namespace Mors.Maybes.Test.Formatting
         {
             Assert.That(
                 Instance(default(object)).ToString(),
-                Is.EqualTo("Some of ``"));
+                Is.EqualTo(""));
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace Mors.Maybes.Test.Formatting
         {
             Assert.That(
                 Instance<object>().ToString(),
-                Is.EqualTo("None"));
+                Is.EqualTo(""));
         }
 
         private sealed class Foo
