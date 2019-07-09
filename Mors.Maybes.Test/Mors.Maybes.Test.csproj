@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mors.Maybes.Test.Extensions\Mors.Maybes.Test.Extensions.csproj" />
     <ProjectReference Include="..\Mors.Maybes\Mors.Maybes.csproj" />
   </ItemGroup>
 
