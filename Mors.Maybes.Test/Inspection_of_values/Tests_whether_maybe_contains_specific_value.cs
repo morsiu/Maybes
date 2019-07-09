@@ -60,11 +60,9 @@ namespace Mors.Maybes.Test.Inspection_of_values
             [Test]
             public void Contains_with_predicate_passes_value_to_predicate()
             {
-                var valueInPredicate = 0;
-                var _ = Instance(1).Contains(x => { valueInPredicate = x; return true; });
                 Assert.That(
-                    valueInPredicate,
-                    Is.EqualTo(1));
+                    a => Instance(1).Contains(x => a.Record(x).Return(true)),
+                    Is.RecordedValue.EqualTo(1));
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mors.Maybes.Test.Extensions;
 using NUnit.Framework;
 
 namespace Mors.Maybes.Test.Equality
@@ -24,27 +25,30 @@ namespace Mors.Maybes.Test.Equality
         [Test]
         public void Use_passes_first_value_to_comparer()
         {
-            int actualFirst = 1;
-            var comparer = new EqualityComparer((x, y) => { actualFirst = x; return true; });
-            var _ = _useThatCallsComparer(2, 3, comparer);
-            Assert.That(actualFirst, Is.EqualTo(2));
+            IEqualityComparer<int> Comparer(RecordedValue a) =>
+                new EqualityComparer((x, y) => a.Record(x).Return(true));
+            Assert.That(
+                a => _useThatCallsComparer(2, 3, Comparer(a)),
+                Is.RecordedValue.EqualTo(2));
         }
 
         [Test]
         public void Use_passes_second_value_to_comparer()
         {
-            int actualSecond = 1;
-            var comparer = new EqualityComparer((x, y) => { actualSecond = y; return true; });
-            var _ = _useThatCallsComparer(2, 3, comparer);
-            Assert.That(actualSecond, Is.EqualTo(3));
+            IEqualityComparer<int> Comparer(RecordedValue a) =>
+                new EqualityComparer((x, y) => a.Record(y).Return(true));
+            Assert.That(
+                a => _useThatCallsComparer(2, 3, Comparer(a)),
+                Is.RecordedValue.EqualTo(3));
         }
 
         [Test]
         public void Use_returns_result_of_comparer()
         {
             var comparer = new EqualityComparer((x, y) => false);
-            var actualResult = _useThatCallsComparer(1, 1, comparer);
-            Assert.That(actualResult, Is.False);
+            Assert.That(
+                _useThatCallsComparer(1, 1, comparer),
+                Is.False);
         }
 
         private sealed class EqualityComparer : IEqualityComparer<int>

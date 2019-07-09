@@ -108,9 +108,9 @@ namespace Mors.Maybes.Test.Manipulation_of_values
             [Test]
             public void FlatMap_passes_stored_value_to_function()
             {
-                var actualValue = 1;
-                var _ = Instance(2).FlatMap(x => { actualValue = x; return Instance(); });
-                Assert.That(actualValue, Is.EqualTo(2));
+                Assert.That(
+                   a => Instance(2).FlatMap(x => a.Record(x).Return(Instance())),
+                   Is.RecordedValue.EqualTo(2));
             }
         }
 

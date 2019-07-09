@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Mors.Maybes.Test.Extensions;
 using NUnit.Framework;
 
 namespace Mors.Maybes.Test.Equality
@@ -12,27 +13,30 @@ namespace Mors.Maybes.Test.Equality
         [Test]
         public void Equals_passes_first_value_to_comparer()
         {
-            object actualFirst = 1;
-            var comparer = new EqualityComparer((x, y) => { actualFirst = x; return true; });
-            var _ = Equals(2, 3, comparer);
-            Assert.That(actualFirst, Is.EqualTo(2));
+            IEqualityComparer Comparer(RecordedValue a) =>
+                new EqualityComparer((x, y) => a.Record(x).Return(true));
+            Assert.That(
+                a => Equals(2, 3, Comparer(a)),
+                Is.RecordedValue.EqualTo(2));
         }
 
         [Test]
         public void Equals_passes_second_value_to_comparer()
         {
-            object actualSecond = 1;
-            var comparer = new EqualityComparer((x, y) => { actualSecond = y; return true; });
-            var _ = Equals(2, 3, comparer);
-            Assert.That(actualSecond, Is.EqualTo(3));
+            IEqualityComparer Comparer(RecordedValue a) =>
+                new EqualityComparer((x, y) => a.Record(y).Return(true));
+            Assert.That(
+               a => Equals(2, 3, Comparer(a)),
+               Is.RecordedValue.EqualTo(3));
         }
 
         [Test]
         public void Equals_returns_result_of_comparer()
         {
             var comparer = new EqualityComparer((x, y) => false);
-            var actualResult = Equals(1, 1, comparer);
-            Assert.That(actualResult, Is.False);
+            Assert.That(
+                Equals(1, 1, comparer),
+                Is.False);
         }
 
         private static int GetHashCode(int x, IEqualityComparer e) =>
@@ -41,18 +45,20 @@ namespace Mors.Maybes.Test.Equality
         [Test]
         public void GetHashCode_passes_value_to_comparer()
         {
-            object actualValue = 0;
-            var comparer = new EqualityComparer(x => { actualValue = x; return 0; });
-            var _ = GetHashCode(1, comparer);
-            Assert.That(actualValue, Is.EqualTo(1));
+            IEqualityComparer Comparer(RecordedValue a) =>
+                new EqualityComparer(x => a.Record(x).Return(0));
+            Assert.That(
+                a => GetHashCode(1, Comparer(a)),
+                Is.RecordedValue.EqualTo(1));
         }
 
         [Test]
         public void GetHashCode_returns_result_of_comparer()
         {
             var comparer = new EqualityComparer(x => 1);
-            var actualResult = GetHashCode(1, comparer);
-            Assert.That(actualResult, Is.EqualTo(1));
+            Assert.That(
+                GetHashCode(1, comparer),
+                Is.EqualTo(1));
         }
 
         private sealed class EqualityComparer : IEqualityComparer

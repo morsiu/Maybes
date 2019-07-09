@@ -12,9 +12,9 @@ namespace Mors.Maybes.Test.Manipulation_of_values
             [Test]
             public void FlatMap_passes_stored_value_to_function()
             {
-                var actualValue = 1;
-                var _ = Instance(2).FlatMap(x => { actualValue = x; return Instance(); });
-                Assert.That(actualValue, Is.EqualTo(2));
+                Assert.That(
+                    a => Instance(2).FlatMap(x => a.Record(x).Return(Instance())),
+                    Is.RecordedValue.EqualTo(2));
             }
 
             [Test]
@@ -28,9 +28,9 @@ namespace Mors.Maybes.Test.Manipulation_of_values
             [Test]
             public void Map_passes_stored_value_to_function()
             {
-                var actualValue = 1;
-                var _ = Instance(2).Map(x => { actualValue = x; return 3; });
-                Assert.That(actualValue, Is.EqualTo(2));
+                Assert.That(
+                    a => Instance(2).Map(x => a.Record(x).Return(5)),
+                    Is.RecordedValue.EqualTo(2));
             }
 
             [Test]
@@ -44,9 +44,9 @@ namespace Mors.Maybes.Test.Manipulation_of_values
             [Test]
             public void Match_passes_stored_value_to_function()
             {
-                var actualValue = 1;
-                var _ = Instance(2).Match(x => { actualValue = x; return 3; }, () => 4);
-                Assert.That(actualValue, Is.EqualTo(2));
+                Assert.That(
+                    a => Instance(2).Match(x => a.Record(x).Return(3), () => 4),
+                    Is.RecordedValue.EqualTo(2));
             }
 
             [Test]
