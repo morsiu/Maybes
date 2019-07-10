@@ -2,7 +2,7 @@
 
 namespace Mors.Maybes.Test.Manipulation_of_values
 {
-    public sealed class Tests_of_manipulating_values
+    public sealed class Tests_of_manipulating_one_value
     {
         public sealed class Maybe_with_stored_value
         {

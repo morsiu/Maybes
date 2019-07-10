@@ -2,7 +2,7 @@
 
 namespace Mors.Maybes.Test.Side_effects
 {
-    public sealed class Tests_of_side_effects
+    public sealed class Tests_of_side_effects_with_one_maybe
     {
         public sealed class Maybe_with_value
         {

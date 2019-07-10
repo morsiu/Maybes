@@ -89,15 +89,39 @@ namespace Mors.Maybes
                 ? map(_value)
                 : new Maybe<TU>();
 
+        public Maybe<TV> FlatMap<TU, TV>(in Maybe<TU> other, Func<T, TU, Maybe<TV>> map) =>
+            HasValue && other.HasValue
+                ? map(_value, other._value)
+                : new Maybe<TV>();
+
         public Maybe<TU> Map<TU>(Func<T, TU> map) =>
             HasValue
                 ? new Maybe<TU>(map(_value))
                 : new Maybe<TU>();
 
+        public Maybe<TV> Map<TU, TV>(in Maybe<TU> other, Func<T, TU, TV> map) =>
+            HasValue && other.HasValue
+                ? new Maybe<TV>(map(_value, other._value))
+                : new Maybe<TV>();
+
         public TU Match<TU>(Func<T, TU> matchSome, Func<TU> matchNone) =>
             HasValue
                 ? matchSome(_value)
                 : matchNone();
+
+        public TV Match<TU, TV>(
+            in Maybe<TU> other,
+            Func<T, TU, TV> matchBothSome,
+            Func<T, TV> matchFirstSome,
+            Func<TU, TV> matchSecondSome,
+            Func<TV> matchBothNone) =>
+            (HasValue, other.HasValue) switch
+            {
+                (true, true) => matchBothSome(_value, other._value),
+                (true, false) => matchFirstSome(_value),
+                (false, true) => matchSecondSome(other._value),
+                _ => matchBothNone()
+            };
 
         public void MatchVoid(Action<T> some, Action none)
         {
@@ -111,6 +135,30 @@ namespace Mors.Maybes
             }
         }
 
+        public void MatchVoid<TU>(
+            in Maybe<TU> other,
+            Action<T, TU> matchBothSome,
+            Action<T> matchFirstSome,
+            Action<TU> matchSecondSome,
+            Action matchBothNone)
+        {
+            switch (HasValue, other.HasValue)
+            {
+                case (true, true):
+                    matchBothSome(_value, other._value);
+                    break;
+                case (true, false):
+                    matchFirstSome(_value);
+                    break;
+                case (false, true):
+                    matchSecondSome(other._value);
+                    break;
+                default:
+                    matchBothNone();
+                    break;
+            }
+        }
+
         public void MatchSome(Action<T> match)
         {
             if (HasValue)
@@ -119,9 +167,45 @@ namespace Mors.Maybes
             }
         }
 
+        public void MatchSome<TU>(in Maybe<TU> other, Action<T, TU> match)
+        {
+            if (HasValue && other.HasValue)
+            {
+                match(_value, other._value);
+            }
+        }
+
+        public void MatchSome<TU>(
+            in Maybe<TU> other,
+            Action<T, TU> matchBoth,
+            Action<T> matchFirst,
+            Action<TU> matchSecond)
+        {
+            switch (HasValue, other.HasValue)
+            {
+                case (true, true):
+                    matchBoth(_value, other._value);
+                    break;
+                case (true, false):
+                    matchFirst(_value);
+                    break;
+                case (false, true):
+                    matchSecond(other._value);
+                    break;
+            }
+        }
+
         public void MatchNone(Action match)
         {
             if (!HasValue)
+            {
+                match();
+            }
+        }
+
+        public void MatchNone<TU>(in Maybe<TU> other, Action match)
+        {
+            if (!HasValue && !other.HasValue)
             {
                 match();
             }
