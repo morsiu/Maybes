@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Maybes.Test", "Mors.Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Maybes.Test.Extensions", "Mors.Maybes.Test.Extensions\Mors.Maybes.Test.Extensions.csproj", "{3E3AEF94-AB7C-4889-8D36-0AC966E03BEA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{888DE43E-8176-4C20-94F5-9B5C19D99A5D}"
+	ProjectSection(SolutionItems) = preProject
+		Default.ruleset = Default.ruleset
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
