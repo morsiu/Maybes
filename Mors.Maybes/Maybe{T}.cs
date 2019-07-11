@@ -211,10 +211,20 @@ namespace Mors.Maybes
             }
         }
 
+        public Maybe<T> NoneWhen(bool condition) =>
+            HasValue && condition
+                ? new Maybe<T>()
+                : this;
+
         public Maybe<T> NoneWhen(Predicate<T> predicate) =>
             HasValue && predicate(_value)
                 ? new Maybe<T>()
                 : this;
+
+        public Maybe<T> SomeWhen(bool condition) =>
+            HasValue && condition
+                ? this
+                : new Maybe<T>();
 
         public Maybe<T> SomeWhen(Predicate<T> predicate) =>
             HasValue && predicate(_value)
