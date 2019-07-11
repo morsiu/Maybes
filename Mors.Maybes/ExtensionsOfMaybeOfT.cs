@@ -54,6 +54,12 @@ namespace Mors.Maybes
                 ? new[] { maybe.Value }
                 : Enumerable.Empty<T>();
 
+        public static T? ToNullable<T>(in this Maybe<T> maybe)
+            where T : struct =>
+            maybe.HasValue
+                ? maybe.Value
+                : default(T?);
+
         public static TU ValueOr<T, TU>(in this Maybe<T> maybe, in TU value)
             where T : TU =>
             maybe.HasValue

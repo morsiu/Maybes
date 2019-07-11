@@ -20,6 +20,14 @@ namespace Mors.Maybes.Test.Inspection_of_values
             }
 
             [Test]
+            public static void ToNullable_returns_stored_value()
+            {
+                Assert.That(
+                    Instance(2).ToNullable(),
+                    Is.EqualTo(2));
+            }
+
+            [Test]
             public void Value_returns_stored_value()
             {
                 Assert.That(
@@ -95,6 +103,14 @@ namespace Mors.Maybes.Test.Inspection_of_values
                 Assert.That(
                     Instance<int>().ToEnumerable(),
                     Is.EquivalentTo(Enumerable.Empty<int>()));
+            }
+
+            [Test]
+            public static void ToNullable_returns_null()
+            {
+                Assert.That(
+                    Instance<int>().ToNullable(),
+                    Is.EqualTo(null));
             }
 
             [Test]
