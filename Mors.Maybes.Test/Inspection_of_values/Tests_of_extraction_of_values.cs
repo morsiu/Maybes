@@ -12,6 +12,14 @@ namespace Mors.Maybes.Test.Inspection_of_values
             private static Maybe<T> Instance<T>(T x) => new Maybe<T>(x);
 
             [Test]
+            public static void ToEnumerable_returns_enumerable_with_stored_value()
+            {
+                Assert.That(
+                    Instance(1).ToEnumerable(),
+                    Is.EquivalentTo(new[] { 1 }));
+            }
+
+            [Test]
             public void Value_returns_stored_value()
             {
                 Assert.That(
@@ -80,6 +88,14 @@ namespace Mors.Maybes.Test.Inspection_of_values
         {
             private static Maybe<int> Instance() => new Maybe<int>();
             private static Maybe<T> Instance<T>() => new Maybe<T>();
+
+            [Test]
+            public static void ToEnumerable_returns_empty_enumerable()
+            {
+                Assert.That(
+                    Instance<int>().ToEnumerable(),
+                    Is.EquivalentTo(Enumerable.Empty<int>()));
+            }
 
             [Test]
             public void Value_throws_InvalidOperationException()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mors.Maybes
 {
@@ -47,6 +48,11 @@ namespace Mors.Maybes
                     ? new Maybe<T>()
                     : new Maybe<T>(maybe.Value.Value)
                 : new Maybe<T>();
+
+        public static IEnumerable<T> ToEnumerable<T>(in this Maybe<T> maybe) =>
+            maybe.HasValue
+                ? new[] { maybe.Value }
+                : Enumerable.Empty<T>();
 
         public static TU ValueOr<T, TU>(in this Maybe<T> maybe, in TU value)
             where T : TU =>
