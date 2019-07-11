@@ -77,6 +77,18 @@ namespace Mors.Maybes.Test.Creation_with_value
                 "x.GetOrNone(a), x : IReadOnlyDictionary<TA, TB>, a : TA, x.Contains(a)",
                 () => new Dictionary<int, string> { { 5, "a" } }.GetOrNone(5),
                 "a");
+            yield return TestFixtureData(
+                "x.FirstOrNone(), x : IEnumerable<T>, x.Any()",
+                () => new[] { 1, 2 }.FirstOrNone(),
+                1);
+            yield return TestFixtureData(
+                "x.LastOrNone(), x : IEnumerable<T>, x.Any()",
+                () => new[] { 1, 2 }.LastOrNone(),
+                2);
+            yield return TestFixtureData(
+                "x.FirstOrNone(predicate), x : IEnumerable<T>, x.Any(predicate)",
+                () => new[] { 1, 2 }.FirstOrNone(x => x == 2),
+                2);
 
             TestFixtureData TestFixtureData<T>(
                 string maybeDescription,

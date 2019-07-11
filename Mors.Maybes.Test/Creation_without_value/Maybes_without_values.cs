@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Mors.Maybes.Test.Creation_without_value
@@ -56,6 +57,24 @@ namespace Mors.Maybes.Test.Creation_without_value
             yield return Data(
                 "x.GetOrNone(a), x : IReadOnlyDictionary<TA, TB>, a : TA, !x.Contains(a)",
                 () => new Dictionary<int, string>().GetOrNone(5));
+            yield return Data(
+                "x.FirstOrNone(), x : IEnumerable<T>, !x.Any()",
+                () => Enumerable.Empty<int>().FirstOrNone());
+            yield return Data(
+                "x.FirstOrNone(predicate), x : IEnumerable<T>, !x.Any()",
+                () => Enumerable.Empty<int>().FirstOrNone(x => true));
+            yield return Data(
+                "x.FirstOrNone(), x : IEnumerable<T>, !x.Any(predicate)",
+                () => new[] { 1, 2 }.FirstOrNone(x => x == 3));
+            yield return Data(
+                "x.LastOrNone(), x : IEnumerable<T>, !x.Any()",
+                () => Enumerable.Empty<int>().LastOrNone());
+            yield return Data(
+                "x.LastOrNone(predicate), x : IEnumerable<T>, !x.Any()",
+                () => Enumerable.Empty<int>().LastOrNone(x => true));
+            yield return Data(
+                "x.LastOrNone(predicate), x : IEnumerable<T>, !x.Any()",
+                () => new[] { 1, 2 }.LastOrNone(x => x == 3));
 
             TestFixtureData Data<T>(string maybeDescription, Func<Maybe<T>> maybe)
             {
