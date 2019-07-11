@@ -53,6 +53,9 @@ namespace Mors.Maybes.Test.Creation_without_value
             yield return Data(
                 "x.TryCast<U>(), x : T, neither T : U, nor U : T",
                  () => "1".TryCast<int>());
+            yield return Data(
+                "x.GetOrNone(a), x : IReadOnlyDictionary<TA, TB>, a : TA, !x.Contains(a)",
+                () => new Dictionary<int, string>().GetOrNone(5));
 
             TestFixtureData Data<T>(string maybeDescription, Func<Maybe<T>> maybe)
             {

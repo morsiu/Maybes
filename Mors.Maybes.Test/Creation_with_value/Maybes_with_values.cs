@@ -73,6 +73,10 @@ namespace Mors.Maybes.Test.Creation_with_value
                 "x.TryCast<T>(), x : T",
                 () => new Derived().TryCast<Derived>(),
                 new Derived());
+            yield return TestFixtureData(
+                "x.GetOrNone(a), x : IReadOnlyDictionary<TA, TB>, a : TA, x.Contains(a)",
+                () => new Dictionary<int, string> { { 5, "a" } }.GetOrNone(5),
+                "a");
 
             TestFixtureData TestFixtureData<T>(
                 string maybeDescription,
