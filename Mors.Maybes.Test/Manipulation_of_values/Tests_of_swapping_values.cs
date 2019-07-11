@@ -7,6 +7,7 @@ namespace Mors.Maybes.Test.Manipulation_of_values
         public sealed class Maybe_with_stored_value
         {
             private static Maybe<int> Instance() => new Maybe<int>();
+            private static Maybe<T> Instance<T>() => new Maybe<T>();
             private static Maybe<T> Instance<T>(T x) => new Maybe<T>(x);
 
             [Test]
@@ -47,6 +48,54 @@ namespace Mors.Maybes.Test.Manipulation_of_values
                 Assert.That(
                     Instance(1).NoneWhen(x => true),
                     Is.EqualTo(Instance()));
+            }
+
+            [Test]
+            public void NoneWhenDefault_with_null_of_class_type_returns_maybe_without_value()
+            {
+                Assert.That(
+                    Instance(default(string)).NoneWhenDefault(),
+                    Is.EqualTo(Instance<string>()));
+            }
+
+            [Test]
+            public void NoneWhenDefault_with_null_of_nullable_type_returns_maybe_without_value()
+            {
+                Assert.That(
+                    Instance(default(int?)).NoneWhenDefault(),
+                    Is.EqualTo(Instance<int>()));
+            }
+
+            [Test]
+            public void NoneWhenDefault_with_default_value_of_struct_type_returns_maybe_without_value()
+            {
+                Assert.That(
+                    Instance(default(float)).NoneWhenDefault(),
+                    Is.EqualTo(Instance<float>()));
+            }
+
+            [Test]
+            public void NoneWhenDefault_with_non_null_value_of_class_type_returns_maybe_with_the_value()
+            {
+                Assert.That(
+                    Instance("a").NoneWhenDefault(),
+                    Is.EqualTo(Instance("a")));
+            }
+
+            [Test]
+            public void NoneWhenDefault_with_non_null_value_of_nullable_type_returns_maybe_with_the_value()
+            {
+                Assert.That(
+                    Instance<int?>(5).NoneWhenDefault(),
+                    Is.EqualTo(Instance(5)));
+            }
+
+            [Test]
+            public void NoneWhenDefault_with_non_default_value_of_struct_type_returns_maybe_with_the_value()
+            {
+                Assert.That(
+                    Instance(4f).NoneWhenDefault(),
+                    Is.EqualTo(Instance(4f)));
             }
 
             [Test]
