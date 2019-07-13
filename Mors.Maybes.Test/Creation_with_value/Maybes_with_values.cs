@@ -87,8 +87,12 @@ namespace Mors.Maybes.Test.Creation_with_value
                 2);
             yield return TestFixtureData(
                 "x.FirstOrNone(predicate), x : IEnumerable<T>, x.Any(predicate)",
-                () => new[] { 1, 2 }.FirstOrNone(x => x == 2),
+                () => new[] { 1, 2, 4 }.FirstOrNone(x => x % 2 == 0),
                 2);
+            yield return TestFixtureData(
+                "x.LastOrNone(predicate), x : IEnumerable<T>, x.Any(predicate)",
+                () => new[] { 1, 2, 4 }.LastOrNone(x => x % 2 == 0),
+                4);
 
             TestFixtureData TestFixtureData<T>(
                 string maybeDescription,
