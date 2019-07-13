@@ -38,6 +38,14 @@ namespace Mors.Maybes
             Predicate<T> predicate) =>
             new LastOfEnumerableWithPredicate<T>(value, predicate).Value();
 
+        public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> value) =>
+            new SingleOfEnumerable<T>(value).Value();
+
+        public static Maybe<T> SingleOrNone<T>(
+            this IEnumerable<T> value,
+            Predicate<T> predicate) =>
+            new SingleOfEnumerableWithPredicate<T>(value, predicate).Value();
+
         public static Maybe<IEnumerable<T>> SomeOfEnumerable<T>(this IEnumerable<T> value) =>
             new Maybe<IEnumerable<T>>(value);
 

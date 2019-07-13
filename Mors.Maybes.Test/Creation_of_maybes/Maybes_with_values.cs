@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace Mors.Maybes.Test.Creation_with_value
+namespace Mors.Maybes.Test.Creation_of_maybes
 {
     public static class Maybes_with_values
     {
@@ -93,6 +93,14 @@ namespace Mors.Maybes.Test.Creation_with_value
                 "x.LastOrNone(predicate), x : IEnumerable<T>, x.Any(predicate)",
                 () => new[] { 1, 2, 4 }.LastOrNone(x => x % 2 == 0),
                 4);
+            yield return TestFixtureData(
+                "x.SingleOrDefault(), x : IEnumerable<T>, x.Count() == 1",
+                () => new[] { 1 }.SingleOrNone(),
+                1);
+            yield return TestFixtureData(
+                "x.SingleOrDefault(predicate), x : IEnumerable<T>, x.Count(predicate) == 1",
+                () => new[] { 1, 2, 3 }.SingleOrNone(x => x % 2 == 0),
+                2);
 
             TestFixtureData TestFixtureData<T>(
                 string maybeDescription,

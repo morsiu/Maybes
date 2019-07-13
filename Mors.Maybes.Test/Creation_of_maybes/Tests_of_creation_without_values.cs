@@ -2,7 +2,7 @@
 using System.Collections;
 using NUnit.Framework;
 
-namespace Mors.Maybes.Test.Creation_without_value
+namespace Mors.Maybes.Test.Creation_of_maybes
 {
     [TestFixtureSource(
         typeof(Maybes_without_values),
@@ -22,7 +22,10 @@ namespace Mors.Maybes.Test.Creation_without_value
         [Test]
         public void Created_maybe_equals_maybe_with_expected_value()
         {
-            Assert.That(_createdMaybe(), Is.EqualTo(new Maybe<T>()).Using(StructuralComparisons.StructuralEqualityComparer));
+            Assert.That(
+                _createdMaybe(),
+                Is.EqualTo(new Maybe<T>())
+                    .Using(StructuralComparisons.StructuralEqualityComparer));
         }
     }
 }

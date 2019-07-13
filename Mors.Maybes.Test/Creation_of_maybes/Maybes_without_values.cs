@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace Mors.Maybes.Test.Creation_without_value
+namespace Mors.Maybes.Test.Creation_of_maybes
 {
     public static class Maybes_without_values
     {
@@ -75,6 +75,12 @@ namespace Mors.Maybes.Test.Creation_without_value
             yield return Data(
                 "x.LastOrNone(predicate), x : IEnumerable<T>, !x.Any()",
                 () => new[] { 1, 2 }.LastOrNone(x => x == 3));
+            yield return Data(
+                "x.SingleOrDefault(), x : IEnumerable<T>, x.Count() == 0",
+                () => Enumerable.Empty<int>().SingleOrNone());
+            yield return Data(
+                "x.SingleOrDefault(predicate), x : IEnumerable<T>, x.Count() == 0",
+                () => Enumerable.Empty<int>().SingleOrNone());
 
             TestFixtureData Data<T>(string maybeDescription, Func<Maybe<T>> maybe)
             {

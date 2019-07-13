@@ -2,7 +2,7 @@
 using System.Collections;
 using NUnit.Framework;
 
-namespace Mors.Maybes.Test.Creation_with_value
+namespace Mors.Maybes.Test.Creation_of_maybes
 {
     [TestFixtureSource(
         typeof(Maybes_with_values),
@@ -24,7 +24,10 @@ namespace Mors.Maybes.Test.Creation_with_value
         [Test]
         public void Created_maybe_equals_expected_maybe()
         {
-            Assert.That(_createdMaybe(), Is.EqualTo(new Maybe<T>(_expectedValue)).Using(StructuralComparisons.StructuralEqualityComparer));
+            Assert.That(
+                _createdMaybe(),
+                Is.EqualTo(new Maybe<T>(_expectedValue))
+                    .Using(StructuralComparisons.StructuralEqualityComparer));
         }
     }
 }
