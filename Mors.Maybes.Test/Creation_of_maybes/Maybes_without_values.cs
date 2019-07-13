@@ -81,6 +81,12 @@ namespace Mors.Maybes.Test.Creation_of_maybes
             yield return Data(
                 "x.SingleOrDefault(predicate), x : IEnumerable<T>, x.Count() == 0",
                 () => Enumerable.Empty<int>().SingleOrNone());
+            yield return Data(
+                "x.SomeWhenSingle(), x : IEnumerable<T>, x.Count() == 0",
+                () => Enumerable.Empty<int>().SomeWhenSingle());
+            yield return Data(
+                "x.SomeWhenSingle(), x : IEnumerable<T>, x.Count() > 1",
+                () => new[] { 1, 2 }.SomeWhenSingle());
 
             TestFixtureData Data<T>(string maybeDescription, Func<Maybe<T>> maybe)
             {

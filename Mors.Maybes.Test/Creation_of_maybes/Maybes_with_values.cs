@@ -101,6 +101,10 @@ namespace Mors.Maybes.Test.Creation_of_maybes
                 "x.SingleOrDefault(predicate), x : IEnumerable<T>, x.Count(predicate) == 1",
                 () => new[] { 1, 2, 3 }.SingleOrNone(x => x % 2 == 0),
                 2);
+            yield return TestFixtureData(
+                "x.SomeWhenSingle(), x : IEnumerable<T>, x.Count() == 1",
+                () => new[] { 1 }.SomeWhenSingle(),
+                1);
 
             TestFixtureData TestFixtureData<T>(
                 string maybeDescription,

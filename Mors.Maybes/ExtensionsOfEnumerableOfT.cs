@@ -57,5 +57,19 @@ namespace Mors.Maybes
                 ? new Maybe<TEnumerable>(value)
                 : new Maybe<TEnumerable>();
         }
+
+        public static Maybe<T> SomeWhenSingle<T>(this IEnumerable<T> value)
+        {
+            using var enumerator = value.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                var result = enumerator.Current;
+                if (!enumerator.MoveNext())
+                {
+                    return new Maybe<T>(result);
+                }
+            }
+            return new Maybe<T>();
+        }
     }
 }
