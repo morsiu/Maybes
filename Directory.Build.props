@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)Default.ruleset</CodeAnalysisRuleSet>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 </Project>
