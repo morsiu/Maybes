@@ -92,7 +92,7 @@ namespace Mors.Maybes.Test.Creation_of_maybes
             {
                 return Tests_of_creation_without_values<T>
                     .TestFixtureData(maybe)
-                    .SetArgDisplayNames(maybeDescription);
+                    .WithDisplayName(maybeDescription);
             }
         }
 

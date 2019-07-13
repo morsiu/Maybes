@@ -26,7 +26,7 @@ namespace Mors.Maybes.Test.Creation_of_maybes
                         action,
                         typeof(TException),
                         exceptionMessage)
-                    .SetArgDisplayNames(actionDescription);
+                    .WithDisplayName(actionDescription);
             }
         }
     }
