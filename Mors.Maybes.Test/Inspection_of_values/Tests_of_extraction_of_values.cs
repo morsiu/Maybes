@@ -208,6 +208,50 @@ namespace Mors.Maybes.Test.Inspection_of_values
             }
         }
 
+        public static class Enumerable_of_maybe_type
+        {
+            private static Maybe<int> Instance() => new Maybe<int>();
+            private static Maybe<int> Instance(int x) => new Maybe<int>(x);
+
+            public static IEnumerable<TestCaseData> MaybesWithValues()
+            {
+                yield return Row(
+                    Enumerable<Maybe<int>>(),
+                    Enumerable<int>());
+                yield return Row(
+                    Enumerable(Instance()),
+                    Enumerable<int>());
+                yield return Row(
+                    Enumerable(Instance(1)),
+                    Enumerable(1));
+                yield return Row(
+                    Enumerable(Instance(1), Instance()),
+                    Enumerable(1));
+                yield return Row(
+                    Enumerable(Instance(1), Instance(), Instance(2)),
+                    Enumerable(1, 2));
+
+                static TestCaseData Row(
+                    IEnumerable<Maybe<int>> maybes,
+                    IEnumerable<int> values) =>
+                    new TestCaseData(maybes, values)
+                        .SetDescription(string.Join(", ", maybes));
+
+                static IEnumerable<T> Enumerable<T>(params T[] values) =>
+                    values;
+            }
+
+            [TestCaseSource(nameof(MaybesWithValues))]
+            public static void WhereSome_returns_values_of_non_empty_maybes(
+                IEnumerable<Maybe<int>> maybes,
+                IEnumerable<int> values)
+            {
+                Assert.That(
+                    maybes.WhereSome(),
+                    Is.EqualTo(values));
+            }
+        }
+
         private class Base
         {
             public override bool Equals(object obj) => obj?.GetType() == GetType();
