@@ -9,7 +9,7 @@
     <Authors>Łukasz Mrozek</Authors>
     <Company />
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <PackageProjectUrl>https://github.com/morsiu/Maybes</PackageProjectUrl>
     <RepositoryUrl>https://github.com/morsiu/Maybes</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
