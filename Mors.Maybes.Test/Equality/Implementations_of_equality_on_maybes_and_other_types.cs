@@ -16,7 +16,7 @@ namespace Mors.Maybes.Test.Equality
                 "StructuralComparisons.StructuralEqualityComparer.Equals(object, object, IEqualityComparer)",
                 (x, y) => StructuralComparisons.StructuralEqualityComparer.Equals(x, y));
 
-            TestFixtureData TestFixtureData(
+            static TestFixtureData TestFixtureData(
                 string equalsDescription,
                 Func<object, object, bool> equals)
             {

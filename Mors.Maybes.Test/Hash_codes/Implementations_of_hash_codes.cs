@@ -16,7 +16,7 @@ namespace Mors.Maybes.Test.Hash_codes
             yield return TestFixtureData(new MaybeEqualityComparer_GetHashCode());
             yield return TestFixtureData(new MaybeEqualityComparer_with_EqualityComparer_GetHashCode());
 
-            TestFixtureData TestFixtureData(
+            static TestFixtureData TestFixtureData(
                 Tests_of_hash_codes.IHashCodeImplementation implementation)
             {
                 return Tests_of_hash_codes.TestFixtureData(implementation);

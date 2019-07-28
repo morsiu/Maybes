@@ -106,7 +106,7 @@ namespace Mors.Maybes.Test.Creation_of_maybes
                 () => new[] { 1 }.SomeWhenSingle(),
                 1);
 
-            TestFixtureData TestFixtureData<T>(
+            static TestFixtureData TestFixtureData<T>(
                 string maybeDescription,
                 Func<Maybe<T>> maybe,
                 T expectedValue)

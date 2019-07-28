@@ -40,7 +40,7 @@ namespace Mors.Maybes.Test.Equality
                 "new MaybeEqualityComparer<T>(IEqualityComparer<T>).Equals(Maybe<T>, Maybe<T>)",
                 (x, y) => new MaybeEqualityComparer<int>(EqualityComparer<int>.Default).Equals(x, y));
 
-            TestFixtureData TestFixtureData(
+            static TestFixtureData TestFixtureData(
                 string equalsDescription,
                 Func<Maybe<int>, Maybe<int>, bool> equals)
             {

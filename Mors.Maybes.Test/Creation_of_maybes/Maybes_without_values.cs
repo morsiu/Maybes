@@ -88,7 +88,7 @@ namespace Mors.Maybes.Test.Creation_of_maybes
                 "x.SomeWhenSingle(), x : IEnumerable<T>, x.Count() > 1",
                 () => new[] { 1, 2 }.SomeWhenSingle());
 
-            TestFixtureData Data<T>(string maybeDescription, Func<Maybe<T>> maybe)
+            static TestFixtureData Data<T>(string maybeDescription, Func<Maybe<T>> maybe)
             {
                 return Tests_of_creation_without_values<T>
                     .TestFixtureData(maybe)

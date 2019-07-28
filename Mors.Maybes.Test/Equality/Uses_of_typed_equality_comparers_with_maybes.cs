@@ -18,7 +18,7 @@ namespace Mors.Maybes.Test.Equality
                 "Maybe<T>.Contains(T, IEqualityComparer<T>)",
                 (x, y, e) => x.Some().Contains(y, e));
 
-            TestFixtureData TestFixtureData(
+            static TestFixtureData TestFixtureData(
                 string useDescription,
                 Func<int, int, IEqualityComparer<int>, bool> useThatUsesComparer)
             {
