@@ -11,42 +11,42 @@ namespace Mors.Maybes.Test.Manipulation_of_values
             private static Maybe<T> Instance<T>(T x) => new Maybe<T>(x);
 
             [Test]
-            public void NoneWhen_with_false_returns_maybe_with_stored_value()
+            public void ClearWhen_with_false_returns_maybe_with_stored_value()
             {
                 Assert.That(
-                    Instance(1).NoneWhen(false),
+                    Instance(1).ClearWhen(false),
                     Is.EqualTo(Instance(1)));
             }
 
             [Test]
-            public void NoneWhen_with_true_returns_maybe_without_value()
+            public void ClearWhen_with_true_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance(1).NoneWhen(true),
+                    Instance(1).ClearWhen(true),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void NoneWhen_with_predicate_passes_stored_value_to_predicate()
+            public void ClearWhen_with_predicate_passes_stored_value_to_predicate()
             {
                 Assert.That(
-                    a => Instance(2).NoneWhen(x => a.Record(x).Return(true)),
+                    a => Instance(2).ClearWhen(x => a.Record(x).Return(true)),
                     Is.RecordedValue.EqualTo(2));
             }
 
             [Test]
-            public void NoneWhen_with_predicate_returning_false_returns_maybe_with_stored_value()
+            public void ClearWhen_with_predicate_returning_false_returns_maybe_with_stored_value()
             {
                 Assert.That(
-                    Instance(1).NoneWhen(x => false),
+                    Instance(1).ClearWhen(x => false),
                     Is.EqualTo(Instance(1)));
             }
 
             [Test]
-            public void NoneWhen_with_predicate_returning_true_returns_maybe_without_value()
+            public void ClearWhen_with_predicate_returning_true_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance(1).NoneWhen(x => true),
+                    Instance(1).ClearWhen(x => true),
                     Is.EqualTo(Instance()));
             }
 
@@ -99,42 +99,42 @@ namespace Mors.Maybes.Test.Manipulation_of_values
             }
 
             [Test]
-            public void SomeWhen_with_false_returns_maybe_without_value()
+            public void KeepWhen_with_false_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance(1).SomeWhen(false),
+                    Instance(1).KeepWhen(false),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void SomeWhen_with_true_returns_maybe_with_stored_value()
+            public void KeepWhen_with_true_returns_maybe_with_stored_value()
             {
                 Assert.That(
-                    Instance(1).SomeWhen(true),
+                    Instance(1).KeepWhen(true),
                     Is.EqualTo(Instance(1)));
             }
 
             [Test]
-            public void SomeWhen_with_predicate_passes_stored_value_to_predicate()
+            public void KeepWhen_with_predicate_passes_stored_value_to_predicate()
             {
                 Assert.That(
-                    a => Instance(2).SomeWhen(x => a.Record(x).Return(true)),
+                    a => Instance(2).KeepWhen(x => a.Record(x).Return(true)),
                     Is.RecordedValue.EqualTo(2));
             }
 
             [Test]
-            public void SomeWhen_with_predicate_returning_false_returns_maybe_without_value()
+            public void KeepWhen_with_predicate_returning_false_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance(1).SomeWhen(x => false),
+                    Instance(1).KeepWhen(x => false),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void SomeWhen_with_predicate_returning_true_returns_maybe_with_stored_value()
+            public void KeepWhen_with_predicate_returning_true_returns_maybe_with_stored_value()
             {
                 Assert.That(
-                    Instance(1).SomeWhen(x => true),
+                    Instance(1).KeepWhen(x => true),
                     Is.EqualTo(Instance(1)));
             }
         }
@@ -144,66 +144,66 @@ namespace Mors.Maybes.Test.Manipulation_of_values
             private static Maybe<int> Instance() => new Maybe<int>();
 
             [Test]
-            public void NoneWhen_with_false_returns_maybe_without_value()
+            public void ClearWhen_with_false_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().NoneWhen(false),
+                    Instance().ClearWhen(false),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void NoneWhen_with_true_returns_maybe_without_value()
+            public void ClearWhen_with_true_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().NoneWhen(true),
+                    Instance().ClearWhen(true),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void NoneWhen_with_predicate_returning_false_returns_maybe_without_value()
+            public void ClearWhen_with_predicate_returning_false_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().NoneWhen(x => false),
+                    Instance().ClearWhen(x => false),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void NoneWhen_with_predicate_returning_true_returns_maybe_without_value()
+            public void ClearWhen_with_predicate_returning_true_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().NoneWhen(x => true),
+                    Instance().ClearWhen(x => true),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void SomeWhen_with_false_returns_maybe_without_value()
+            public void KeepWhen_with_false_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().SomeWhen( false),
+                    Instance().KeepWhen( false),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void SomeWhen_with_true_returns_maybe_without_value()
+            public void KeepWhen_with_true_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().SomeWhen(true),
+                    Instance().KeepWhen(true),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void SomeWhen_with_predicate_returning_false_returns_maybe_without_value()
+            public void KeepWhen_with_predicate_returning_false_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().SomeWhen(x => false),
+                    Instance().KeepWhen(x => false),
                     Is.EqualTo(Instance()));
             }
 
             [Test]
-            public void SomeWhen_with_predicate_returning_true_returns_maybe_without_value()
+            public void KeepWhen_with_predicate_returning_true_returns_maybe_without_value()
             {
                 Assert.That(
-                    Instance().SomeWhen(x => true),
+                    Instance().KeepWhen(x => true),
                     Is.EqualTo(Instance()));
             }
         }
