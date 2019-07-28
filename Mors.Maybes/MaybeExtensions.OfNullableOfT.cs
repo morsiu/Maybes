@@ -1,6 +1,6 @@
 ﻿namespace Mors.Maybes
 {
-    public static class ExtensionsOfNullableOfT
+    public static partial class MaybeExtensions
     {
         public static Maybe<T> SomeNotNull<T>(in this T? value)
             where T : struct =>

@@ -2,7 +2,7 @@
 
 namespace Mors.Maybes
 {
-    public static class ExtensionsOfDictionaryOfT
+    public static partial class MaybeExtensions
     {
         public static Maybe<TValue> GetOrNone<TKey, TValue>(
             this IReadOnlyDictionary<TKey, TValue> dictionary, in TKey key) =>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Mors.Maybes
 {
-    public static class ExtensionsOfT
+    public static partial class MaybeExtensions
     {
         public static Maybe<T> NoneWhen<T>(this T value, bool condition) =>
             condition

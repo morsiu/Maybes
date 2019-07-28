@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Mors.Maybes
 {
-    public static class ExtensionsOfEnumerableOfMaybeOfT
+    public static partial class MaybeExtensions
     {
         public static IEnumerable<T> WhereSome<T>(
             this IEnumerable<Maybe<T>> value)

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Mors.Maybes
 {
-    public static class ExtensionsOfMaybeOfT
+    public static partial class MaybeExtensions
     {
         public static Maybe<TU> Cast<T, TU>(in this Maybe<T> maybe)
             where T : TU =>

@@ -1,6 +1,6 @@
 ﻿namespace Mors.Maybes
 {
-    public static class ExtensionsOfMaybeOfMaybeOfT
+    public static partial class MaybeExtensions
     {
         public static Maybe<T> Flatten<T>(in this Maybe<Maybe<T>> maybe) =>
             maybe.HasValue

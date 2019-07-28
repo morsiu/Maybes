@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Mors.Maybes
 {
-    public static class ExtensionsOfEnumerableOfT
+    public static partial class MaybeExtensions
     {
         public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> value)
         {
