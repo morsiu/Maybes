@@ -11,12 +11,10 @@ namespace Mors.Maybes
             {
                 return Enumerable.Empty<T>();
             }
-            using (var enumerator = maybe.Value.GetEnumerator())
-            {
-                return enumerator.MoveNext()
-                    ? maybe.Value
-                    : Enumerable.Empty<T>();
-            }
+            using var enumerator = maybe.Value.GetEnumerator();
+            return enumerator.MoveNext()
+                ? maybe.Value
+                : Enumerable.Empty<T>();
         }
     }
 }
