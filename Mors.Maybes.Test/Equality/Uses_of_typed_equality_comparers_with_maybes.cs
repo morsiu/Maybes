@@ -24,7 +24,7 @@ namespace Mors.Maybes.Test.Equality
             {
                 return Tests_of_maybes_with_typed_equality_comparers
                     .TestFixtureData(useThatUsesComparer)
-                    .WithDisplayName(useDescription);
+                    .WithArgsDisplayName(useDescription);
             }
         }
     }

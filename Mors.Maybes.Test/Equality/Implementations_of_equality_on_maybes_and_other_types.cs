@@ -22,7 +22,7 @@ namespace Mors.Maybes.Test.Equality
             {
                 return Tests_of_equality_on_maybes_and_other_values
                     .TestFixtureData(equals)
-                    .WithDisplayName(equalsDescription);
+                    .WithArgsDisplayName(equalsDescription);
             }
         }
     }

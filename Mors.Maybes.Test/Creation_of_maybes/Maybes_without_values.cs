@@ -73,7 +73,7 @@ namespace Mors.Maybes.Test.Creation_of_maybes
                 "x.LastOrNone(predicate), x : IEnumerable<T>, !x.Any()",
                 () => Enumerable.Empty<int>().LastOrNone(x => true));
             yield return Data(
-                "x.LastOrNone(predicate), x : IEnumerable<T>, !x.Any()",
+                "x.LastOrNone(predicate), x : IEnumerable<T>, !x.Any(predicate)",
                 () => new[] { 1, 2 }.LastOrNone(x => x == 3));
             yield return Data(
                 "x.SingleOrDefault(), x : IEnumerable<T>, x.Count() == 0",
@@ -92,7 +92,7 @@ namespace Mors.Maybes.Test.Creation_of_maybes
             {
                 return Tests_of_creation_without_values<T>
                     .TestFixtureData(maybe)
-                    .WithDisplayName(maybeDescription);
+                    .WithArgsDisplayName(maybeDescription);
             }
         }
 

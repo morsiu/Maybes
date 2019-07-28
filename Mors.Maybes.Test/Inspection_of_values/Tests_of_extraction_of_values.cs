@@ -217,25 +217,31 @@ namespace Mors.Maybes.Test.Inspection_of_values
             {
                 yield return Row(
                     Enumerable<Maybe<int>>(),
-                    Enumerable<int>());
+                    Enumerable<int>(),
+                    "Empty");
                 yield return Row(
                     Enumerable(Instance()),
-                    Enumerable<int>());
+                    Enumerable<int>(),
+                    "Maybe.None<T>()");
                 yield return Row(
                     Enumerable(Instance(1)),
-                    Enumerable(1));
+                    Enumerable(1),
+                    "T.Some()");
                 yield return Row(
                     Enumerable(Instance(1), Instance()),
-                    Enumerable(1));
+                    Enumerable(1),
+                    "T.Some(), T.Some()");
                 yield return Row(
                     Enumerable(Instance(1), Instance(), Instance(2)),
-                    Enumerable(1, 2));
+                    Enumerable(1, 2),
+                    "T.Some(), T.Some(), T.Some()");
 
                 static TestCaseData Row(
                     IEnumerable<Maybe<int>> maybes,
-                    IEnumerable<int> values) =>
+                    IEnumerable<int> values,
+                    string description) =>
                     new TestCaseData(maybes, values)
-                        .SetDescription(string.Join(", ", maybes));
+                        .WithArgsDisplayName(description);
 
                 static IEnumerable<T> Enumerable<T>(params T[] values) =>
                     values;

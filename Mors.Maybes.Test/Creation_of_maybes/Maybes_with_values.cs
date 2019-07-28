@@ -113,7 +113,7 @@ namespace Mors.Maybes.Test.Creation_of_maybes
             {
                 return Tests_of_creation_with_value<T>
                     .TestFixtureData(maybe, expectedValue)
-                    .WithDisplayName(maybeDescription);
+                    .WithArgsDisplayName(maybeDescription);
             }
         }
 

@@ -46,7 +46,7 @@ namespace Mors.Maybes.Test.Equality
             {
                 return Tests_of_equality_on_same_type_maybes
                     .TestFixtureData(equals)
-                    .WithDisplayName(equalsDescription);
+                    .WithArgsDisplayName(equalsDescription);
             }
         }
     }
